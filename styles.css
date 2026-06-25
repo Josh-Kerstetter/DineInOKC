@@ -1,0 +1,670 @@
+/* ============================================================
+   DineIn OKC — Skeuomorphic Stylesheet
+   ============================================================ */
+
+:root {
+  --header-h: 64px;
+  --tabbar-h: 86px;
+
+  --wood-light: #8a4a3a;
+  --wood-mid: #6b3328;
+  --wood-dark: #4a2018;
+  --wood-deep: #2e120d;
+
+  --paper: #f7f1e6;
+  --paper-edge: #e8ddc8;
+  --ink: #2b2420;
+  --ink-soft: #5a4f44;
+
+  --gold: #c9a24b;
+  --gold-bright: #e8c97a;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #111;
+  font-family: 'Montserrat', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+button { font-family: inherit; }
+
+/* ============================================================
+   TOP HEADER BAR — glossy black, engraved text
+   ============================================================ */
+
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(180deg,
+      #3a3a3a 0%,
+      #1c1c1c 8%,
+      #0a0a0a 45%,
+      #050505 55%,
+      #161616 92%,
+      #2a2a2a 100%);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.08) inset,
+    0 -2px 6px rgba(0,0,0,0.6) inset,
+    0 3px 10px rgba(0,0,0,0.55);
+  border-bottom: 1px solid #000;
+}
+
+.topbar-shine {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0) 100%);
+  pointer-events: none;
+}
+
+.brand-engraved {
+  position: relative;
+  margin: 0;
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-weight: 800;
+  font-style: italic;
+  font-size: 23px;
+  letter-spacing: 0.5px;
+  color: #2b2b2b;
+  text-shadow:
+    0 1px 0 rgba(255,255,255,0.18),
+    0 -1px 1px rgba(0,0,0,0.9),
+    0 2px 2px rgba(0,0,0,0.5);
+  user-select: none;
+}
+
+/* ============================================================
+   PAGE LAYOUT
+   ============================================================ */
+
+#app {
+  position: fixed;
+  top: var(--header-h);
+  bottom: var(--tabbar-h);
+  left: 0; right: 0;
+  background: #ece6d8;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(0,0,0,0.035) 1px, transparent 0);
+  background-size: 4px 4px;
+  overflow: hidden;
+}
+
+.page {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.page.hidden { display: none; }
+
+.page-scroll {
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 16px;
+}
+
+.page-spacer-top { height: 18px; }
+.page-spacer-bottom { height: 28px; }
+
+.section-title {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--ink);
+  margin: 4px 4px 14px;
+}
+
+/* ============================================================
+   FEATURED PAGE — paper texture cards with physical photos
+   ============================================================ */
+
+.place-card {
+  display: flex;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(255,255,255,0.5), transparent 40%),
+    linear-gradient(135deg, #fbf6ea 0%, #f3ead4 50%, #efe4cb 100%);
+  border-radius: 14px;
+  margin-bottom: 18px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.6) inset,
+    0 10px 22px rgba(60,45,20,0.22),
+    0 2px 4px rgba(60,45,20,0.18);
+  overflow: hidden;
+  position: relative;
+}
+
+.place-card::before {
+  /* subtle paper fiber texture */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(120,100,60,0.025) 0px, transparent 1px, transparent 2px, rgba(120,100,60,0.02) 3px),
+    repeating-linear-gradient(90deg, rgba(120,100,60,0.02) 0px, transparent 1px, transparent 3px);
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+.photo-frame {
+  flex: 0 0 132px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 0 14px 14px;
+}
+
+.photo {
+  position: relative;
+  width: 112px;
+  height: 140px;
+  border-radius: 3px;
+  background: #fff;
+  padding: 8px 8px 22px 8px;
+  box-shadow:
+    0 1px 0 #fff inset,
+    0 6px 14px rgba(40,30,15,0.35),
+    0 2px 3px rgba(40,30,15,0.25);
+  transform: rotate(-2.2deg);
+}
+
+.photo::after {
+  /* the actual "photograph" image area */
+  content: "";
+  position: absolute;
+  top: 8px; left: 8px; right: 8px; bottom: 22px;
+  border-radius: 1px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.06) inset;
+}
+
+.photo.tone-warm::after {
+  background:
+    linear-gradient(160deg, #d8893f 0%, #a8501f 38%, #6e2c16 75%, #3a160c 100%),
+    radial-gradient(circle at 30% 25%, rgba(255,210,140,0.55), transparent 55%);
+  background-blend-mode: screen, normal;
+}
+.photo.tone-cool::after {
+  background:
+    linear-gradient(160deg, #c97a4a 0%, #8e3f2a 40%, #4f2418 78%, #271210 100%),
+    radial-gradient(circle at 70% 20%, rgba(255,190,120,0.4), transparent 50%);
+  background-blend-mode: screen, normal;
+}
+.photo.tone-amber::after {
+  background:
+    linear-gradient(160deg, #e3a857 0%, #b06a2c 42%, #6b3618 78%, #341a0e 100%),
+    radial-gradient(circle at 25% 70%, rgba(255,225,170,0.4), transparent 50%);
+  background-blend-mode: screen, normal;
+}
+
+.photo-vignette {
+  position: absolute;
+  top: 8px; left: 8px; right: 8px; bottom: 22px;
+  border-radius: 1px;
+  box-shadow: inset 0 0 18px 4px rgba(0,0,0,0.45);
+  pointer-events: none;
+}
+
+.photo-tape {
+  position: absolute;
+  width: 30px;
+  height: 14px;
+  top: -5px;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+.tape-left { left: 6px; transform: rotate(-32deg); }
+.tape-right { right: 6px; transform: rotate(28deg); }
+
+.card-body {
+  flex: 1;
+  padding: 16px 16px 14px 12px;
+  min-width: 0;
+}
+
+.place-name {
+  font-family: 'Tangerine', 'Brush Script MT', cursive;
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 1;
+  color: #5a2a14;
+  margin: 0 0 2px;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+}
+
+.place-tagline {
+  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0 0 8px;
+  letter-spacing: 0.3px;
+}
+
+.card-divider {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(90,42,20,0.35), transparent 85%);
+  margin-bottom: 8px;
+}
+
+.place-info {
+  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  font-size: 13.5px;
+  color: var(--ink);
+  margin: 0 0 4px;
+  line-height: 1.35;
+}
+
+.info-label {
+  font-family: 'Montserrat', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #8a5a2e;
+  margin-right: 6px;
+}
+
+.card-rating {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stars {
+  color: #c9892f;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+}
+
+.rating-text {
+  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+/* ============================================================
+   MENUS PAGE
+   ============================================================ */
+
+.menu-list {
+  background: linear-gradient(135deg, #fbf6ea, #efe4cb);
+  border-radius: 14px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.6) inset,
+    0 8px 18px rgba(60,45,20,0.18);
+  overflow: hidden;
+}
+
+.menu-row, .friend-row {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(90,42,20,0.12);
+  gap: 14px;
+}
+.menu-row:last-child, .friend-row:last-child { border-bottom: none; }
+
+.menu-thumb {
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.05) inset;
+}
+.thumb-warm { background: linear-gradient(160deg, #d8893f, #6e2c16); }
+.thumb-cool { background: linear-gradient(160deg, #c97a4a, #4f2418); }
+.thumb-amber { background: linear-gradient(160deg, #e3a857, #6b3618); }
+
+.menu-row-text h3, .friend-row-text h3 {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-size: 16px;
+  margin: 0 0 2px;
+  color: var(--ink);
+}
+.menu-row-text p, .friend-row-text p {
+  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.menu-chevron {
+  margin-left: auto;
+  color: #b08a4a;
+  font-size: 20px;
+}
+
+/* ============================================================
+   FRIENDS PAGE
+   ============================================================ */
+
+.friends-list {
+  background: linear-gradient(135deg, #fbf6ea, #efe4cb);
+  border-radius: 14px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.6) inset,
+    0 8px 18px rgba(60,45,20,0.18);
+  overflow: hidden;
+}
+
+.friend-avatar {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, var(--wood-light), var(--wood-dark));
+  color: #f3e6c8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3), 0 0 0 2px rgba(255,255,255,0.5);
+}
+
+/* ============================================================
+   SETTINGS PAGE
+   ============================================================ */
+
+.settings-list {
+  background: linear-gradient(135deg, #fbf6ea, #efe4cb);
+  border-radius: 14px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.6) inset,
+    0 8px 18px rgba(60,45,20,0.18);
+  overflow: hidden;
+}
+
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 16px;
+  border-bottom: 1px solid rgba(90,42,20,0.12);
+  font-family: 'Montserrat', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14.5px;
+  color: var(--ink);
+}
+.settings-row:last-child { border-bottom: none; }
+
+.settings-value {
+  color: #8a5a2e;
+  font-weight: 600;
+  font-size: 13.5px;
+}
+
+/* ============================================================
+   BOTTOM TAB BAR — mahogany wood, ingrained icons/text
+   ============================================================ */
+
+.tabbar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--tabbar-h);
+  z-index: 100;
+  display: flex;
+  align-items: stretch;
+
+  background-image: url('assets/mahogany-wood.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  box-shadow:
+    0 -1px 0 rgba(255,220,180,0.15) inset,
+    0 1px 0 rgba(0,0,0,0.6),
+    0 -3px 10px rgba(0,0,0,0.5);
+  border-top: 1px solid rgba(0,0,0,0.5);
+}
+
+.tabbar-grain {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    rgba(0,0,0,0.18) 0%,
+    rgba(0,0,0,0.02) 12%,
+    rgba(0,0,0,0.05) 70%,
+    rgba(0,0,0,0.35) 100%);
+  pointer-events: none;
+}
+
+.tab-btn {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 10px 0 12px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tab-btn::before {
+  /* engraved recess panel, appears on active */
+  content: "";
+  position: absolute;
+  top: 4px; bottom: 4px; left: 6px; right: 6px;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.32), rgba(0,0,0,0.12) 70%, transparent 100%);
+  box-shadow:
+    inset 0 2px 4px rgba(0,0,0,0.65),
+    inset 0 -1px 1px rgba(255,200,150,0.12);
+}
+
+.tab-btn.active::before { opacity: 1; }
+
+.tab-label {
+  position: relative;
+  font-family: 'Montserrat', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  color: #c98a52;
+  text-shadow:
+    0 1px 0 rgba(255,200,150,0.15),
+    0 -1px 1px rgba(0,0,0,0.85);
+}
+
+.tab-btn.active .tab-label {
+  color: #ecb87a;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,0.4),
+    0 -1px 1px rgba(0,0,0,0.95),
+    0 0 6px rgba(0,0,0,0.4);
+}
+
+.tab-icon {
+  position: relative;
+  width: 25px;
+  height: 25px;
+  display: block;
+}
+
+/* ---- icon engraving base filter (applies to all svg-bg icons) ---- */
+.tab-icon {
+  filter:
+    drop-shadow(0 1px 0 rgba(255,205,160,0.18))
+    drop-shadow(0 -1px 1px rgba(0,0,0,0.85));
+  opacity: 0.92;
+}
+
+.tab-btn.active .tab-icon {
+  filter:
+    drop-shadow(0 1px 0 rgba(0,0,0,0.5))
+    drop-shadow(0 -1px 1px rgba(0,0,0,1))
+    drop-shadow(0 0 5px rgba(0,0,0,0.45));
+  opacity: 1;
+}
+
+/* Fancy Glass icon (Featured) — martini/coupe glass silhouette */
+.icon-glass { color: #c98a52; }
+.icon-glass::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 0;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border: 2px solid #c98a52;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  border-bottom: none;
+  box-sizing: border-box;
+}
+.icon-glass::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: 0;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 11px;
+  background: #c98a52;
+  box-shadow: -6px 7px 0 -0.5px #c98a52, 6px 7px 0 -0.5px #c98a52;
+}
+.tab-btn.active .icon-glass::before { border-color: #ecb87a; }
+.tab-btn.active .icon-glass::after { background: #ecb87a; box-shadow: -6px 7px 0 -0.5px #ecb87a, 6px 7px 0 -0.5px #ecb87a; }
+
+/* Menu icon (3 lines) */
+.icon-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.icon-menu span {
+  display: block;
+  width: 18px;
+  height: 2.5px;
+  background: #c98a52;
+  border-radius: 2px;
+}
+.tab-btn.active .icon-menu span { background: #ecb87a; }
+
+/* Friends icon (3 silhouettes) */
+.icon-friends {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1px;
+}
+.icon-friends .person {
+  position: relative;
+  width: 9px;
+  height: 16px;
+}
+.icon-friends .person .head {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #c98a52;
+}
+.icon-friends .person .body {
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 9px; height: 8px;
+  border-radius: 5px 5px 0 0;
+  background: #c98a52;
+}
+.icon-friends .person.side { width: 7px; opacity: 0.85; }
+.icon-friends .person.side .head { width: 6px; height: 6px; }
+.icon-friends .person.side .body { width: 7px; height: 7px; }
+.tab-btn.active .icon-friends .head,
+.tab-btn.active .icon-friends .body { background: #ecb87a; }
+
+/* Settings icon (gear) */
+.icon-settings {
+  border-radius: 50%;
+  border: 2.5px solid #c98a52;
+  box-sizing: border-box;
+}
+.icon-settings::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  border: 2px solid #c98a52;
+}
+.icon-settings::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  background:
+    linear-gradient(0deg, transparent 46%, #c98a52 46%, #c98a52 54%, transparent 54%),
+    linear-gradient(60deg, transparent 46%, #c98a52 46%, #c98a52 54%, transparent 54%),
+    linear-gradient(120deg, transparent 46%, #c98a52 46%, #c98a52 54%, transparent 54%);
+  -webkit-mask-image: radial-gradient(circle, transparent 60%, #000 61%, #000 78%, transparent 79%);
+  mask-image: radial-gradient(circle, transparent 60%, #000 61%, #000 78%, transparent 79%);
+}
+.tab-btn.active .icon-settings { border-color: #ecb87a; }
+.tab-btn.active .icon-settings::before { border-color: #ecb87a; }
+.tab-btn.active .icon-settings::after {
+  background:
+    linear-gradient(0deg, transparent 46%, #ecb87a 46%, #ecb87a 54%, transparent 54%),
+    linear-gradient(60deg, transparent 46%, #ecb87a 46%, #ecb87a 54%, transparent 54%),
+    linear-gradient(120deg, transparent 46%, #ecb87a 46%, #ecb87a 54%, transparent 54%);
+}
+
+/* ============================================================
+   SCROLLBAR (webkit) — subtle
+   ============================================================ */
+.page-scroll::-webkit-scrollbar { width: 5px; }
+.page-scroll::-webkit-scrollbar-thumb {
+  background: rgba(90,42,20,0.25);
+  border-radius: 4px;
+}
+.page-scroll::-webkit-scrollbar-track { background: transparent; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (min-width: 640px) {
+  #app { max-width: 640px; left: 50%; transform: translateX(-50%); }
+  .topbar { max-width: 640px; left: 50%; transform: translateX(-50%); }
+  .tabbar { max-width: 640px; left: 50%; transform: translateX(-50%); }
+}
+
+@media (max-width: 380px) {
+  .photo-frame { flex: 0 0 108px; }
+  .photo { width: 92px; height: 122px; }
+  .place-name { font-size: 32px; }
+  .tab-label { font-size: 10px; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+/* Focus visibility for accessibility */
+.tab-btn:focus-visible {
+  outline: 2px solid #ecb87a;
+  outline-offset: -4px;
+}
